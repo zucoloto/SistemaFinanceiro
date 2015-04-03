@@ -3,7 +3,7 @@
 	<Realm className="org.apache.catalina.realm.JDBCRealm"
 		driverName="com.mysql.jdbc.Driver" 
 		connectionURL="jdbc:mysql://localhost/sistema_financeiro"
-		connectionName="root" 
+		connectionName="user_financeiro" 
 		connectionPassword="008516" 
 		userTable="usuario"
 		userNameCol="nome_usuario"
