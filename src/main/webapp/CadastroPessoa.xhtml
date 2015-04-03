@@ -1,0 +1,80 @@
+<ui:composition template="/template/Principal.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="titulo">#{cadastroPessoaBean.editando ? 'Editando Registro' : 'Novo Registro'}</ui:define>
+
+	<ui:define name="conteudo">
+
+		<f:metadata>
+			<f:viewParam name="codigo" value="#{cadastroPessoaBean.pessoa}" />
+		</f:metadata>
+
+		<h:outputStylesheet library="css" name="sistema.css" />
+
+		<h1>#{cadastroPessoaBean.editando ? 'Editando Registro' : 'Novo
+			Registro'}</h1>
+
+		<h:form id="form">
+
+			<h:button value="Home" outcome="home" />
+			<h:button value="Novo" outcome="CadastroPessoa" />
+			<h:button value="Consulta" outcome="ConsultaPessoa" />
+
+			<h:messages showSummary="true" showDetail="false"
+				styleClass="form-messages" errorClass="error" infoClass="info" />
+
+			<h:panelGrid columns="2" styleClass="form-grid"
+				columnClasses="label, campo" id="panel">
+
+				<h:outputLabel value="Tipo: " />
+				<h:selectOneRadio value="#{cadastroPessoaBean.pessoa.tipo}"
+					required="true" label="Tipo de Pessoa" immediate="true"
+					valueChangeListener="#{cadastroPessoaBean.lancamentoTipoPessoaModificado}"
+					onchange="submit();">
+					<f:selectItems value="#{cadastroPessoaBean.tipoPessoa}" var="item"
+						itemLabel="#{item.descricao}" itemValue="#{item}" />
+				</h:selectOneRadio>
+
+				<h:outputLabel value="Nome da Pessoa: " for="nome" />
+				<h:inputText value="#{cadastroPessoaBean.pessoa.nome}" size="60"
+					id="nome" required="true" label="Nome da Pessoa" />
+
+				<h:outputLabel value="E-mail: " for="email" />
+				<h:inputText value="#{cadastroPessoaBean.pessoa.email}" size="60"
+					id="email" required="true" label="e-mail" />
+
+				<h:outputLabel value="Data Nascimento: "
+					rendered="#{cadastroPessoaBean.pessoa.tipo eq 'FISICA'}" />
+				<h:inputText value="#{cadastroPessoaBean.pessoa.dataNascimento}"
+					size="12" label="Data de Nascimento"
+					rendered="#{cadastroPessoaBean.pessoa.tipo eq 'FISICA'}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:inputText>
+
+				<h:outputLabel value="Ramo de Atividade: "
+					rendered="#{cadastroPessoaBean.pessoa.tipo eq 'JURIDICA'}" />
+				<h:selectOneMenu value="#{cadastroPessoaBean.pessoa.atividade}"
+					label="Ramo de Atividade"
+					rendered="#{cadastroPessoaBean.pessoa.tipo eq 'JURIDICA'}">
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+					<f:selectItems value="#{cadastroPessoaBean.atividades}"
+						var="atividade" itemLabel="#{atividade.descricao}"
+						itemValue="#{atividade}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel />
+				<h:commandButton value="Salvar"
+					action="#{cadastroPessoaBean.salvar}">
+					<f:ajax execute="@form" render="@all" />
+				</h:commandButton>
+
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

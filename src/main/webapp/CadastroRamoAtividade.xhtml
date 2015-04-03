@@ -1,0 +1,47 @@
+<ui:composition template="/template/Principal.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="titulo">#{ramoAtividadeBean.editando ? 'Editando Registro' : 'Novo Registro'}</ui:define>
+
+	<ui:define name="conteudo">
+
+		<f:metadata>
+			<f:viewParam name="codigo" value="#{ramoAtividadeBean.atividade}" />
+		</f:metadata>
+
+		<h:outputStylesheet library="css" name="sistema.css" />
+
+		<h1>#{ramoAtividadeBean.editando ? 'Editando Registro' : 'Novo
+			Registro'}</h1>
+
+		<h:form id="form">
+
+			<h:button value="Home" outcome="home" />
+			<h:button value="Novo" outcome="CadastroRamoAtividade" />
+			<h:button value="Consulta" outcome="ConsultaRamoAtividade" />
+
+			<h:messages showSummary="true" showDetail="false"
+				styleClass="form-messages" errorClass="error" infoClass="info" />
+
+			<h:panelGrid columns="2" styleClass="form-grid"
+				columnClasses="label, campo" id="panel">
+
+				<h:outputLabel value="Descrição: " />
+				<h:inputText value="#{ramoAtividadeBean.atividade.descricao}"
+					size="40" required="true" label="Descrição" />
+
+				<h:outputLabel />
+				<h:commandButton value="Salvar" action="#{ramoAtividadeBean.salvar}">
+					<f:ajax execute="@form" render="@all" />
+				</h:commandButton>
+
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

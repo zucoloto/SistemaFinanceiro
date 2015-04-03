@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:link outcome="Home">
+		<h:graphicImage value="/imagens/logo.png" styleClass="logo" />
+	</h:link>
+
+	<div class="menu">
+		<h:form>
+			<h:outputFormat
+				value="Usuário logado: #{facesContext.externalContext.userPrincipal.name}"
+				styleClass="logged-user" />
+
+			<h:link outcome="Home">Home</h:link>
+			<h:commandLink action="#{segurancaBean.sair}">Sair</h:commandLink>
+		</h:form>
+	</div>
+
+</ui:composition>
